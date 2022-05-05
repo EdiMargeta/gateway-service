@@ -12,9 +12,11 @@ public class SpringCloudConfig {
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/news-portal/**")
-                        .uri("http://localhost:9100/"))
+                        .filters(f -> f.rewritePath("news-portal/", ""))
+                        .uri("lb://news-portal/"))
                 .route(r -> r.path("/currency-exchange/**")
-                        .uri("http://localhost:9101/"))
+                        .filters(f -> f.rewritePath("currency-exchange/", ""))
+                        .uri("lb://currency-exchange/"))
                 .build();
     }
 

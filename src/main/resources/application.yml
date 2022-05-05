@@ -4,8 +4,20 @@ server:
 spring:
   application:
     name: gateway-service
-
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+      routes:
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8083/eureka
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
